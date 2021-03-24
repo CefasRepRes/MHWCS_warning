@@ -1,4 +1,4 @@
-import xarray
+import xarray as xr
 import numpy as np
 
 ####################STEP 1- Daily flags of abnormally cold or hot water temperatures######################
@@ -11,8 +11,7 @@ import numpy as np
    dayofyear= the day of the year"""
 
 
-def Flagging3D(quantile_xar_cold, quantile_xar_warm, sst_xar, dayofyear):
-    sst_xar = sst_xar.where((sst_xar.time.dt.dayofyear == dayofyear), drop=True)
+def Flagging3D(quantile_xar_cold, quantile_xar_warm, sst_xar):
     #select only days of year that are in NRT data
     quantile_xar_cold = quantile_xar_cold.where(quantile_xar_cold.time.dt.dayofyear.isin(sst_xar.time.dt.dayofyear), drop=True)
     quantile_xar_warm = quantile_xar_warm.where(quantile_xar_warm.time.dt.dayofyear.isin(sst_xar.time.dt.dayofyear), drop=True)
@@ -178,8 +177,42 @@ def duration10Days(startDayOfYear, endDayofYear, flagged_array):
    ds= 3d xarray with flags as variables ('cold_flags' or 'warm_flags')
    window = 5 or 10 days (otherwise this would throw an error)
    flags = 'cold_flags' or 'cold_flags' or 'warm_flags' (different names if these were used in Flagging3D)"""
-  
-def rollingDuration(ds, window = 5, flags = 'cold_flags'):
+
+def warmspelldur(ds, window = 5, flags = 'warm_flags'):
+    #ds should be a 3d xarray with flags as variables.
+    #window must be 5 or 10, it will return an error otherwise
+    #flags should be whatever you called your flag variable ('warm_flags' or 'cold_flags' in this case)
+    days = ds.time.dt.dayofyear.values
+    if len(days) < 10:
+        print("ERROR: Input dataset must have at least 10 daily timesteps")
+    if window == 5:
+        rolling_ds = []
+        for d in days[4:len(days)]:
+            StartDay = d - 4
+            EndDay = d
+            con_days = duration5Days(startDayOfYear = StartDay, endDayofYear = EndDay, flagged_array = ds[flags])
+            rolling_ds.append(con_days)
+        rolling_ds = xr.concat(rolling_ds, dim = 'time')
+        rolling_ds = rolling_ds.rename({"condayscount": "warmspelldur"})
+        return(rolling_ds)    
+    elif window == 10:
+        for d in days[9:len(days)]:
+            rolling_ds = []
+            StartDay = d - 9
+            EndDay = d
+            con_days = duration10Days(startDayOfYear = StartDay, endDayofYear = EndDay, flagged_array = ds[flags])
+            rolling_ds.append(con_days)
+        rolling_ds = xr.concat(rolling_ds, dim = 'time')
+        rolling_ds = rolling_ds.rename({"condayscount": "warmspelldur"})
+        return(rolling_ds)
+    
+    else:
+        print("ERROR: Window must be 5 or 10")
+        
+def coldspelldur(ds, window = 5, flags = 'cold_flags'):
+    #ds should be a 3d xarray with flags as variables.
+    #window must be 5 or 10, it will return an error otherwise
+    #flags should be whatever you called your flag variable ('warm_flags' or 'cold_flags' in this case)
     days = ds.time.dt.dayofyear.values
     if len(days) < 5:
         print("ERROR: Input dataset must have at least 5 daily timesteps")
