@@ -30,6 +30,9 @@ We use high resolution (0.05x0.05 degrees) [NRT OSTIA Level 4 CMEMS](https://res
 ## Interpretation of MHW and MCS products (add)
 
 
+## MHWCS_warning GitHub repository (add description when all scripts will be finalised)
+
+
 
 ## Reference
 
