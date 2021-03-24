@@ -45,6 +45,8 @@ MHW and MCS warnings show consecutive days in 5 days window when the sea surface
 
 MHW and MCS duration shows a duration of MHW or MCS in 10 days windows. Firstly an onset of a MHW or MCS in the first 5 days of the window is marked. For these events a duration of the consecutive days is calculated. Therefore a duration can be between 1-6 days. Please see a table below that depicts this:
 
+![image](https://user-images.githubusercontent.com/23084713/112398558-63dce400-8cfc-11eb-8678-9a999192239b.png)
+
 **Add a table and a screenshot**
 
 
