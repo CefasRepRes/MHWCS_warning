@@ -1,3 +1,4 @@
+
 import xarray as xr
 import numpy as np
 
@@ -12,6 +13,7 @@ import numpy as np
 
 
 def Flagging3D(quantile_xar_cold, quantile_xar_warm, sst_xar):
+
     #select only days of year that are in NRT data
     quantile_xar_cold = quantile_xar_cold.where(quantile_xar_cold.time.dt.dayofyear.isin(sst_xar.time.dt.dayofyear), drop=True)
     quantile_xar_warm = quantile_xar_warm.where(quantile_xar_warm.time.dt.dayofyear.isin(sst_xar.time.dt.dayofyear), drop=True)
@@ -172,16 +174,14 @@ def duration10Days(startDayOfYear, endDayofYear, flagged_array):
     return ds
 
   ###################STEP 4- applies the duration10Days and duration5Days over 5 and 10 days window#############################
-"""rollingDuration applies duration5Days and duration10Days functions on a 5 and 10 days rolling window. 
+
+"""warmspelldur and coldspelldur apply duration5Days and duration10Days functions on a 5 and 10 days rolling window. 
    arguments:
-   ds= 3d xarray with flags as variables ('cold_flags' or 'warm_flags')
+   ds = 3d xarray with flags as variables
    window = 5 or 10 days (otherwise this would throw an error)
-   flags = 'cold_flags' or 'cold_flags' or 'warm_flags' (different names if these were used in Flagging3D)"""
+   flags = the name of the flag variable. 'cold_flags' or 'warm_flags' (different names if these were used in Flagging3D)"""
 
 def warmspelldur(ds, window = 5, flags = 'warm_flags', fill = 'True'):
-    #ds should be a 3d xarray with flags as variables.
-    #window must be 5 or 10, it will return an error otherwise
-    #flags should be whatever you called your flag variable ('warm_flags' or 'cold_flags' in this case)
     days = ds.time.dt.dayofyear.values
     if len(days) < 10:
         print("ERROR: Input dataset must have at least 10 daily timesteps")
@@ -224,10 +224,8 @@ def warmspelldur(ds, window = 5, flags = 'warm_flags', fill = 'True'):
     
     else:
         print("ERROR: Window must be 5 or 10")        
+
 def coldspelldur(ds, window = 5, flags = 'cold_flags', fill = 'True'):
-    #ds should be a 3d xarray with flags as variables.
-    #window must be 5 or 10, it will return an error otherwise
-    #flags should be whatever you called your flag variable ('warm_flags' or 'cold_flags' in this case)
     days = ds.time.dt.dayofyear.values
     if len(days) < 5:
         print("ERROR: Input dataset must have at least 5 daily timesteps")
@@ -270,4 +268,4 @@ def coldspelldur(ds, window = 5, flags = 'cold_flags', fill = 'True'):
     
     else:
         print("ERROR: Window must be 5 or 10")
-  
+
