@@ -189,7 +189,7 @@ def warmspelldur(ds, window = 5, flags = 'warm_flags', fill = 'True'):
         rolling_ds = []
         if fill == "True":
             for d in days[0:4]:
-                dummy = ds.where((ds.time.dt.dayofyear == 1), drop=True)
+                dummy = ds.where((ds.time.dt.dayofyear == d), drop=True)
                 arr = np.empty((dummy[flags].shape[0],dummy[flags].shape[1],dummy[flags].shape[2]))
                 arr[:] = np.NaN
                 dummy['condayscount'] = (["time", "lat", "lon"], arr)
@@ -207,7 +207,7 @@ def warmspelldur(ds, window = 5, flags = 'warm_flags', fill = 'True'):
         rolling_ds = []
         if fill == "True":
             for d in days[0:9]:
-                dummy = ds.where((ds.time.dt.dayofyear == 1), drop=True)
+                dummy = ds.where((ds.time.dt.dayofyear == d), drop=True)
                 arr = np.empty((dummy[flags].shape[0],dummy[flags].shape[1],dummy[flags].shape[2]))
                 arr[:] = np.NaN
                 dummy['condayscount'] = (["time", "lat", "lon"], arr)
@@ -233,7 +233,7 @@ def coldspelldur(ds, window = 5, flags = 'cold_flags', fill = 'True'):
         rolling_ds = []
         if fill == "True":
             for d in days[0:4]:
-                dummy = ds.where((ds.time.dt.dayofyear == 1), drop=True)
+                dummy = ds.where((ds.time.dt.dayofyear == d), drop=True)
                 arr = np.empty((dummy[flags].shape[0],dummy[flags].shape[1],dummy[flags].shape[2]))
                 arr[:] = np.NaN
                 dummy['condayscount'] = (["time", "lat", "lon"], arr)
@@ -251,7 +251,7 @@ def coldspelldur(ds, window = 5, flags = 'cold_flags', fill = 'True'):
         rolling_ds = []
         if fill == "True":
             for d in days[0:9]:
-                dummy = ds.where((ds.time.dt.dayofyear == 1), drop=True)
+                dummy = ds.where((ds.time.dt.dayofyear == d), drop=True)
                 arr = np.empty((dummy[flags].shape[0],dummy[flags].shape[1],dummy[flags].shape[2]))
                 arr[:] = np.NaN
                 dummy['condayscount'] = (["time", "lat", "lon"], arr)
