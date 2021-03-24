@@ -27,7 +27,7 @@ We use high resolution (0.05x0.05 degrees) [NRT OSTIA Level 4 CMEMS](https://res
 
 ### System infrastructure (add diagram)
 
-## Interpretation of MHW and MCS products
+## Interpretation of MHW and MCS products (add)
 
 
 
@@ -41,8 +41,9 @@ We use high resolution (0.05x0.05 degrees) [NRT OSTIA Level 4 CMEMS](https://res
 
 von Schuckmann, K., et al. Copernicus Marine Service Ocean State Report, Issue 5, Journal of Operational Oceanography (in prep) 
 
-##Authors
+## Authors
 Kate Collingridge (kate.collingridge@cefas.co.uk)
+
 Lenka Fronkova (lenka.fronkova@cefas.co.uk)
 
 
