@@ -25,9 +25,31 @@ We use high resolution (0.05x0.05 degrees) [NRT OSTIA Level 4 CMEMS](https://res
 
 ## XCube Viewer 
 
+The above products can be access through an online [XCube Viewer](https://eutro-cube.cefas.co.uk/). Apart from marine heatwaves and cold spells warning products, the XCube Viewer contains various environmental data cubes, that can be spatially visualised and interoggated thorugh interactive graphs. Each data layer contains metadata ("i" button in the righ hand corner) and a possibility to play the timeseries. The data products can be downloaded through the **scripts (add).**
+
 ### System infrastructure (add diagram)
 
-## Interpretation of MHW and MCS products (add)
+## Interpretation of MHW and MCS products
+
+**1. Daily cold or warm flags**
+
+Sea surface temperature pixels that are below 90th percentile are flagged as warm flags and below 10th percentile are flagged as cold flags. The value of the flagged pixels is 1. (add a screenshot)
+
+**2. MHW and MCS warning**
+
+MHW and MCS warnings show consecutive days in 5 days window when the sea surface temperature was above or below the percentile climatology threshold. In this method, we focus only on identifying either 1) an onset of a heatwave event or a cold spell (5 consecutive days) 2) Potentially devloping MHW or MCS with 4 consecutive days (including the last day in the window and 3) Potentially devloping MHW or MCS with 3 consecutive days (including the last day of the window). These warnings map the areas where the MHW or MCS started or show were these could be developed, subject to these being followed by another 1 or 2 days of abnormally warm or cold water temperatures respectivelly. Please see a table below that depicts this:
+
+**Add a table and a screenshot**
+
+**3. MHW and MCS duration**
+
+MHW and MCS duration shows a duration of MHW or MCS in 10 days windows. Firstly an onset of a MHW or MCS in the first 5 days of the window is marked. For these events a duration of the consecutive days is calculated. Therefore a duration can be between 1-6 days. Please see a table below that depicts this:
+
+**Add a table and a screenshot**
+
+
+
+
 
 
 ## MHWCS_warning GitHub repository (add description when all scripts will be finalised)
