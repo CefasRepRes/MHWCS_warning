@@ -9,7 +9,7 @@ Marine Heatwaves (MHWs) and Marine Cold Spells (MCSs) have been observed on a gl
 ## Methods
 We use high resolution (0.05x0.05 degrees) [NRT OSTIA Level 4 CMEMS](https://resources.marine.copernicus.eu/?option=com_csw&view=details&product_id=SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001) seas surface temperature data and apply the definition of MHWs Hobday et al. (2016) to map MHWs and MCSs.  MHW is an area of abnormally warm water, greater than the 90th percentile climatolyg in five consecutive days (Hobday et al., 2016). MCS is an area of abnormally cold water, smaller than the 10th percentile climatology in five consecutive days (von Schuckmann, K., et al., in prep). According to the above, we followed these steps to produce 1. Daily cold and warm spell flags, 2. MHW and MCS warnings in 5 days window, 3. MHW and MCS duration in 10 days window:
 
-1. Compute 10th and 90th percentile climatology between 2010-2019 OSTIA Reprocessed product. XClim Python library is used to calculate the percentile climatological baseline.  
+1. Compute 10th and 90th percentile climatology between 2010-2019 OSTIA Reprocessed product. [XClim Python](https://xclim.readthedocs.io/en/stable/api.html) library is used to calculate the percentile climatological baseline.  
 
 2. Flag NRT OSTIA pixels below the 10th percentile climatological baseline (daily cold spells)
 
@@ -40,6 +40,10 @@ We use high resolution (0.05x0.05 degrees) [NRT OSTIA Level 4 CMEMS](https://res
 [Hobday et al., (2016)](https://www.sciencedirect.com/science/article/pii/S0079661116000057)
 
 von Schuckmann, K., et al. Copernicus Marine Service Ocean State Report, Issue 5, Journal of Operational Oceanography (in prep) 
+
+##Authors
+Kate Collingridge (kate.collingridge@cefas.co.uk)
+Lenka Fronkova (lenka.fronkova@cefas.co.uk)
 
 
  
