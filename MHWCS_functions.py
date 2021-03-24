@@ -1,8 +1,56 @@
 
 import xarray as xr
 import numpy as np
+import xclim 
+from xclim.core.calendar import percentile_doy
 
-####################STEP 1- Daily flags of abnormally cold or hot water temperatures######################
+####################STEP 1- Read OSTIA Reprocessed data netcdf into and xarray and calculate 90th and 10th percentile climatology using XClim######################
+
+"""readXarrayData returns an xarray concatenated on the time dimension and clip it to the area of interest
+   arguments:
+   pathIn= data Input Path, 
+   yearsList= list of years, 
+   concat_dim= time dimenstion ("time"), 
+   variable= netcdf variable, 
+   xmin=xmin, 
+   xmax=xmax, 
+   ymin=ymin, 
+   ymax=ymax"""
+   
+def readXarrayData(pathIn, yearsList, concat_dim, variable, xmin, xmax, ymin, ymax):
+    data = []
+    for y in yearsList:
+        xar_year = xr.open_mfdataset(pathIn+'/{0}/*/*.nc'.format(y), concat_dim=concat_dim)
+        print(pathIn+'/{0}/*/*.nc'.format(y))
+        sliced = xar_year.where((xar_year.lon >xmin) & (xar_year.lon < xmax) & ( xar_year.lat >ymin) & (xar_year.lat < ymax), drop=True)
+        data.append(sliced)
+    	
+    x_ar = xr.concat(data, dim = concat_dim)
+    x_ar = x_ar[variable]
+
+    print("Data successfully imported")
+    return x_ar
+ 
+###example of running the function
+ostia_sst = readXarrayData(pathIn="inputPath", 
+                   yearsList=["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"], #10 years of data
+                   concat_dim= "time", 
+                   variable="analysed_sst", 
+                   xmin=-10.4, 
+                   xmax=10.4, 
+                   ymin=44.8, 
+                   ymax=65.6) 
+   
+####xclim method to calculate percentiles###
+ds_qt10 = percentile_doy(ostia_sst, window=1, per=0.1)
+print("10th percentile was computed")
+
+ds_qt90 = percentile_doy(ostia_sst, window=1, per=0.9)
+print("90th percentile was computed")   
+   
+
+
+####################STEP 2- Daily flags of abnormally cold or hot water temperatures######################
 """Flagging3D function calculates daily marine heatwaves and cold spells flags using sea surface temperature 
    that is greater or smaller than the 90th and 10th climatological percentile.
    arguments:
@@ -27,7 +75,7 @@ def Flagging3D(quantile_xar_cold, quantile_xar_warm, sst_xar):
     sst_xar['cold_flags'] = (["time", "lat", "lon"], flags_mapped_cold)
     return sst_xar
   
-####################STEP 2- Calculate consecutive days in 5 days window#####################################
+####################STEP 3- Calculate consecutive days in 5 days window#####################################
 """duration5Days returns an xarray with the length of consecutive days in 5 days windows. More describtion of
    this function is included in the READ_ME. 
    arguments:
@@ -91,7 +139,7 @@ def duration5Days(startDayOfYear, endDayofYear, flagged_array):
     return ds
   
   
-####################STEP 3- Calculate duration of marine heatwaves or cold spells in 10 days window###########
+####################STEP 4- Calculate duration of marine heatwaves or cold spells in 10 days window###########
 """duration10Days calculates the duration of marine heatwaves or cold spells, meaning a duration of the water pixels
    that have at least 5 consecutive days flagged as abonrmally warm or cold compared to percentile climatology. More
    infromation in the READ_ME. 
@@ -173,7 +221,7 @@ def duration10Days(startDayOfYear, endDayofYear, flagged_array):
     
     return ds
 
-  ###################STEP 4- applies the duration10Days and duration5Days over 5 and 10 days window#############################
+  ###################STEP 5- applies the duration10Days and duration5Days over 5 and 10 days window#############################
 
 """warmspelldur and coldspelldur apply duration5Days and duration10Days functions on a 5 and 10 days rolling window. 
    arguments:
