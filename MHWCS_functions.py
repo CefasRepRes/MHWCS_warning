@@ -1,8 +1,8 @@
 
 import xarray as xr
 import numpy as np
-import xclim 
-from xclim.core.calendar import percentile_doy
+#import xclim 
+#from xclim.core.calendar import percentile_doy
 
 ####################STEP 1- Read OSTIA Reprocessed data netcdf into and xarray and calculate 90th and 10th percentile climatology using XClim######################
 
@@ -32,21 +32,21 @@ def readXarrayData(pathIn, yearsList, concat_dim, variable, xmin, xmax, ymin, ym
     return x_ar
  
 ###example of running the function
-ostia_sst = readXarrayData(pathIn="inputPath", 
-                   yearsList=["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"], #10 years of data
-                   concat_dim= "time", 
-                   variable="analysed_sst", 
-                   xmin=-10.4, 
-                   xmax=10.4, 
-                   ymin=44.8, 
-                   ymax=65.6) 
+#ostia_sst = readXarrayData(pathIn="inputPath", 
+#                   yearsList=["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"], #10 years of data
+#                   concat_dim= "time", 
+#                   variable="analysed_sst", 
+#                   xmin=-10.4, 
+#                   xmax=10.4, 
+#                   ymin=44.8, 
+#                   ymax=65.6) 
    
 ####xclim method to calculate percentiles###
-ds_qt10 = percentile_doy(ostia_sst, window=1, per=0.1)
-print("10th percentile was computed")
+#ds_qt10 = percentile_doy(ostia_sst, window=1, per=0.1)
+#print("10th percentile was computed")
 
-ds_qt90 = percentile_doy(ostia_sst, window=1, per=0.9)
-print("90th percentile was computed")   
+#ds_qt90 = percentile_doy(ostia_sst, window=1, per=0.9)
+#print("90th percentile was computed")   
    
 
 
