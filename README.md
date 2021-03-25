@@ -39,6 +39,10 @@ Sea surface temperature pixels that are below 90th percentile are flagged as war
 
 MHW and MCS warnings show consecutive days in 5 days window when the sea surface temperature was above or below the percentile climatology threshold. In this method, we focus only on identifying either 1) an onset of a heatwave event or a cold spell (5 consecutive days) 2) Potentially devloping MHW or MCS with 4 consecutive days (including the last day in the window and 3) Potentially devloping MHW or MCS with 3 consecutive days (including the last day of the window). These warnings map the areas where the MHW or MCS started or show were these could be developed, subject to these being followed by another 1 or 2 days of abnormally warm or cold water temperatures respectivelly. Please see a table below that depicts this:
 
+![image](https://user-images.githubusercontent.com/23084713/112399472-2d07cd80-8cfe-11eb-9735-6d27a82b46a2.png)
+
+To note the above table does not show all the possible combinations in 5 days window but servers as an example of the warning method.
+
 **Add a table and a screenshot**
 
 **3. MHW and MCS duration**
