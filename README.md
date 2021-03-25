@@ -25,9 +25,12 @@ We use high resolution (0.05x0.05 degrees) [NRT OSTIA Level 4 CMEMS](https://res
 
 ## XCube Viewer 
 
-The above products can be access through an online [XCube Viewer](https://eutro-cube.cefas.co.uk/). Apart from marine heatwaves and cold spells warning products, the XCube Viewer contains various environmental data cubes, that can be spatially visualised and interoggated thorugh interactive graphs. Each data layer contains metadata ("i" button in the righ hand corner) and a possibility to play the timeseries. The data products can be downloaded through the **scripts (add).**
+The above products can be accessed through an online Cefas [XCube Viewer](https://eutro-cube.cefas.co.uk/). Apart from marine heatwaves and cold spells warning products, the XCube Viewer contains various environmental data cubes, that can be spatially visualised and interoggated thorugh interactive graphs in the Web browser. Each data layer contains metadata ("i" button in the righ hand corner) and a possibility to play a timeseries or aggregated data through areas of interst. The diagram below shows the Cefas Data Cube Server. Spatial data is stored on a Linux server in data cube format. These can be accessible through a Web service via any devices witht the Internet connection. On the top of that, the data cubes could be access through APIs (Python and R scripts are available here: **scripts (add).**) as dataframes or xarrays directly to the local machine ready for data analysis. This creates a powerful tool for visualisation, query and analysis.
 
-### System infrastructure (add diagram)
+
+Schematic diagram showing the flow of data:
+
+![image](https://user-images.githubusercontent.com/23084713/112495901-36d01600-8d7c-11eb-9d5c-0f1a9d4f19c3.png)
 
 ## Interpretation of MHW and MCS products
 
