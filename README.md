@@ -23,9 +23,9 @@ We use high resolution (0.05x0.05 degrees) [NRT OSTIA Level 4 CMEMS](https://res
 
 
 
-## XCube Viewer 
+## Cefas Data Cube Viewer 
 
-The above products can be accessed through an online Cefas [XCube Viewer](https://eutro-cube.cefas.co.uk/). Apart from marine heatwaves and cold spells warning products, the XCube Viewer contains various environmental data cubes, that can be spatially visualised and interoggated thorugh interactive graphs in the Web browser. Each data layer contains metadata ("i" button in the righ hand corner) and a possibility to play a timeseries or aggregated data through areas of interst. The diagram below shows the Cefas Data Cube Server. Spatial data is stored on a Linux server in data cube format. These can be accessible through a Web service via any devices witht the Internet connection. On the top of that, the data cubes could be access through APIs (Python and R scripts are available here: **scripts (add).**) as dataframes or xarrays directly to the local machine ready for data analysis. This creates a powerful tool for visualisation, query and analysis.
+The above products can be accessed through an online Cefas [Data Cube Viewer](https://eutro-cube.cefas.co.uk/). Apart from marine heatwaves and cold spells warning products, the Cefas Data Cube Viewer contains various environmental data cubes, that can be spatially visualised and interoggated thorugh interactive graphs in the Web browser. Each data layer contains metadata ("i" button in the righ hand corner) and a possibility to play a timeseries or aggregated data through areas of interst. The diagram below shows the Cefas Data Cube Server. Spatial data is stored on a Linux server in data cube format. These can be accessible through a Web service via any devices witht the Internet connection. On the top of that, the data cubes could be access through APIs (Python and R scripts are available here: **scripts (add).**) as dataframes or xarrays directly to the local machine ready for data analysis. This creates a powerful tool for visualisation, query and analysis.
 
 
 Schematic diagram showing the flow of data:
@@ -46,7 +46,6 @@ MHW and MCS warnings show consecutive days in 5 days window when the sea surface
 
 To note the above table does not show all the possible combinations in 5 days window but servers as an example of the warning method.
 
-**Add a table and a screenshot**
 
 **3. MHW and MCS duration**
 
@@ -54,15 +53,20 @@ MHW and MCS duration shows a duration of MHW or MCS in 10 days windows. Firstly 
 
 ![image](https://user-images.githubusercontent.com/23084713/112398558-63dce400-8cfc-11eb-8678-9a999192239b.png)
 
-**Add a table and a screenshot**
 
+## MHWCS_warning GitHub repository 
 
+**MHWCS_functions.py**
 
+- functions that are applied to created MHW and MCCs products 
 
+**Ostia_heatwaves_coldspells.ipynb**
 
+- a jupyter notebook that runs the functions from MHWCS_functions.py on the Cefas Data Cube Viewer Server
 
-## MHWCS_warning GitHub repository (add description when all scripts will be finalised)
+**climatology_percentile.py**
 
+- a script that reads sea surface temperature data and calculates 10th or 90th percentile climatology
 
 
 ## Reference
