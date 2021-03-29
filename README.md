@@ -56,17 +56,15 @@ MHW and MCS duration shows a duration of MHW or MCS in 10 days windows. Firstly 
 
 ## MHWCS_warning GitHub repository 
 
-**MHWCS_functions.py**
+**MHWCS_functions.py** - functions that are applied to created MHW and MCCs products 
 
-- functions that are applied to created MHW and MCCs products 
+**Ostia_heatwaves_coldspells.ipynb** - a jupyter notebook that runs the functions from MHWCS_functions.py on the Cefas Data Cube Viewer Server
 
-**Ostia_heatwaves_coldspells.ipynb**
+**climatology_percentile.py** - a script that reads sea surface temperature data and calculates 10th or 90th percentile climatology
 
-- a jupyter notebook that runs the functions from MHWCS_functions.py on the Cefas Data Cube Viewer Server
+**xcube_webapi.R** - an R script to access data from the Cefas Data Cube through API
 
-**climatology_percentile.py**
-
-- a script that reads sea surface temperature data and calculates 10th or 90th percentile climatology
+**xcube_api.ipynb** - an Python script to access data from the Cefas Data Cube through API
 
 
 ## Reference
@@ -83,6 +81,36 @@ von Schuckmann, K., et al. Copernicus Marine Service Ocean State Report, Issue 5
 Kate Collingridge (kate.collingridge@cefas.co.uk)
 
 Lenka Fronkova (lenka.fronkova@cefas.co.uk)
+
+## Licence
+
+This source code is licensed under the Open Government Licence v3.0. To view this licence, visit www.nationalarchives.gov.uk/doc/open-government-licence/version/3 or write to the Information Policy Team, The National Archives, Kew, Richmond, Surrey, TW9 4DU.
+
+The Open Government Licence (OGL) Version 3
+
+Copyright (c) 2021 Centre for Environement Fisheries and Aquaculture Science
+
+
+## Data
+
+Data is not supplied with this repository, however it could be accessed directly through the Copernicus Marine Service website: https://marine.copernicus.eu/. This data is free and open access, but you will need to create your own account and read and agree to the Licence conditions. In the MHWs and MCSs Cefas Data Cube, we used the following products:
+
+1. METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2
+
+- resolution:	0.05°x0.05°	
+- units: Daily analysed SST (Kelvin)	
+- access: ftp://nrt.cmems-du.eu/Core/SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001/METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2
+
+2. METOFFICE-GLO-SST-L4-NRT-OBS-ANOM-V2*
+- resolution:	0.25°x0.25°	
+- units: Daily SST Anomaly from pathfinder climatology (Kelvin)	
+- access: ftp://nrt.cmems-du.eu/Core/SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001/METOFFICE-GLO-SST-L4-NRT-OBS-ANOM-V2
+
+
+3. METOFFICE-GLO-SST-L4-REP-OBS-SST*
+- resolution:	0.05°x0.05°	
+- units: Reprocessed Daily SST (Kelvin)	
+- access: ftp://my.cmems-du.eu/Core/SST_GLO_SST_L4_REP_OBSERVATIONS_010_011/METOFFICE-GLO-SST-L4-REP-OBS-SST
 
 
  
