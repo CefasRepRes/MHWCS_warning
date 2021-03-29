@@ -101,13 +101,13 @@ Data is not supplied with this repository, however it could be accessed directly
 - units: Daily analysed SST (Kelvin)	
 - access: ftp://nrt.cmems-du.eu/Core/SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001/METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2
 
-2. METOFFICE-GLO-SST-L4-NRT-OBS-ANOM-V2*
+2. METOFFICE-GLO-SST-L4-NRT-OBS-ANOM-V2
 - resolution:	0.25°x0.25°	
 - units: Daily SST Anomaly from pathfinder climatology (Kelvin)	
 - access: ftp://nrt.cmems-du.eu/Core/SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001/METOFFICE-GLO-SST-L4-NRT-OBS-ANOM-V2
 
 
-3. METOFFICE-GLO-SST-L4-REP-OBS-SST*
+3. METOFFICE-GLO-SST-L4-REP-OBS-SST
 - resolution:	0.05°x0.05°	
 - units: Reprocessed Daily SST (Kelvin)	
 - access: ftp://my.cmems-du.eu/Core/SST_GLO_SST_L4_REP_OBSERVATIONS_010_011/METOFFICE-GLO-SST-L4-REP-OBS-SST
