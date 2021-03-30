@@ -212,23 +212,21 @@ def duration10Days(endDate, flagged_array):
    flags = the name of the flag variable. 'cold_flags' or 'warm_flags' (different names if these were used in Flagging3D)"""
 
 def warmspelldur(ds, window = 5, flags = 'warm_flags', fill = 'True'):
-    days = ds.time.dt.dayofyear.values
-    if len(days) < 10:
+    dates = ds.time.values
+    if len(dates) < 10:
         print("ERROR: Input dataset must have at least 10 daily timesteps")
     if window == 5:
         rolling_ds = []
         if fill == "True":
-            for d in days[0:4]:
-                dummy = ds.where((ds.time.dt.dayofyear == d), drop=True)
+            for d in dates[0:4]:
+                dummy = ds.where((ds.time == d), drop=True)
                 arr = np.empty((dummy[flags].shape[0],dummy[flags].shape[1],dummy[flags].shape[2]))
                 arr[:] = np.NaN
                 dummy['condayscount'] = (["time", "lat", "lon"], arr)
                 con_days2 = dummy.drop(list(dummy.keys())[0:len(list(dummy.keys()))-1])
                 rolling_ds.append(con_days2)
-        for d in days[4:len(days)]:
-            StartDay = d - 4
-            EndDay = d
-            con_days = duration5Days(startDayOfYear = StartDay, endDayofYear = EndDay, flagged_array = ds[flags])
+        for d in dates[4:len(dates)]:
+            con_days = duration5Days(endDate = d, flagged_array = ds[flags])
             rolling_ds.append(con_days)
         rolling_ds = xr.concat(rolling_ds, dim = 'time')
         rolling_ds = rolling_ds.rename({"condayscount": "warmspelldur"})
@@ -236,43 +234,39 @@ def warmspelldur(ds, window = 5, flags = 'warm_flags', fill = 'True'):
     elif window == 10:
         rolling_ds = []
         if fill == "True":
-            for d in days[0:9]:
-                dummy = ds.where((ds.time.dt.dayofyear == d), drop=True)
+            for d in dates[0:9]:
+                dummy = ds.where((ds.time == d), drop=True)
                 arr = np.empty((dummy[flags].shape[0],dummy[flags].shape[1],dummy[flags].shape[2]))
                 arr[:] = np.NaN
                 dummy['condayscount'] = (["time", "lat", "lon"], arr)
                 con_days2 = dummy.drop(list(dummy.keys())[0:len(list(dummy.keys()))-1])
                 rolling_ds.append(con_days2)
-        for d in days[9:len(days)]:
-            StartDay = d - 9
-            EndDay = d
-            con_days = duration10Days(startDayOfYear = StartDay, endDayofYear = EndDay, flagged_array = ds[flags])
+        for d in dates[9:len(dates)]:
+            con_days = duration10Days(endDate = d, flagged_array = ds[flags])
             rolling_ds.append(con_days)
         rolling_ds = xr.concat(rolling_ds, dim = 'time')
         rolling_ds = rolling_ds.rename({"condayscount": "warmspelldur"})
         return(rolling_ds)
     
     else:
-        print("ERROR: Window must be 5 or 10")        
-
+        print("ERROR: Window must be 5 or 10")
+        
 def coldspelldur(ds, window = 5, flags = 'cold_flags', fill = 'True'):
-    days = ds.time.dt.dayofyear.values
-    if len(days) < 5:
+    dates = ds.time.values
+    if len(dates) < 5:
         print("ERROR: Input dataset must have at least 5 daily timesteps")
     if window == 5:
         rolling_ds = []
         if fill == "True":
-            for d in days[0:4]:
-                dummy = ds.where((ds.time.dt.dayofyear == d), drop=True)
+            for d in dates[0:4]:
+                dummy = ds.where((ds.time == d), drop=True)
                 arr = np.empty((dummy[flags].shape[0],dummy[flags].shape[1],dummy[flags].shape[2]))
                 arr[:] = np.NaN
                 dummy['condayscount'] = (["time", "lat", "lon"], arr)
                 con_days2 = dummy.drop(list(dummy.keys())[0:len(list(dummy.keys()))-1])
                 rolling_ds.append(con_days2)
-        for d in days[4:len(days)]:
-            StartDay = d - 4
-            EndDay = d
-            con_days = duration5Days(startDayOfYear = StartDay, endDayofYear = EndDay, flagged_array = ds[flags])
+        for d in dates[4:len(dates)]:
+            con_days = duration5Days(endDate = d, flagged_array = ds[flags])
             rolling_ds.append(con_days)
         rolling_ds = xr.concat(rolling_ds, dim = 'time')
         rolling_ds = rolling_ds.rename({"condayscount": "coldspelldur"})
@@ -280,17 +274,15 @@ def coldspelldur(ds, window = 5, flags = 'cold_flags', fill = 'True'):
     elif window == 10:
         rolling_ds = []
         if fill == "True":
-            for d in days[0:9]:
-                dummy = ds.where((ds.time.dt.dayofyear == d), drop=True)
+            for d in dates[0:9]:
+                dummy = ds.where((ds.time == d), drop=True)
                 arr = np.empty((dummy[flags].shape[0],dummy[flags].shape[1],dummy[flags].shape[2]))
                 arr[:] = np.NaN
                 dummy['condayscount'] = (["time", "lat", "lon"], arr)
                 con_days2 = dummy.drop(list(dummy.keys())[0:len(list(dummy.keys()))-1])
                 rolling_ds.append(con_days2)
-        for d in days[9:len(days)]:   
-            StartDay = d - 9
-            EndDay = d
-            con_days = duration10Days(startDayOfYear = StartDay, endDayofYear = EndDay, flagged_array = ds[flags])
+        for d in dates[9:len(dates)]:   
+            con_days = duration10Days(endDate = d, flagged_array = ds[flags])
             rolling_ds.append(con_days)
         rolling_ds = xr.concat(rolling_ds, dim = 'time')
         rolling_ds = rolling_ds.rename({"condayscount": "coldspelldur"})
