@@ -1,6 +1,7 @@
 
 import xarray as xr
 import numpy as np
+import pandas as pd
 
 ####################STEP 1- Read OSTIA Data as an xarray and perform geographic clipping######################
 
@@ -61,21 +62,20 @@ def Flagging3D(quantile_xar_cold, quantile_xar_warm, sst_xar):
 """duration5Days returns an xarray with the length of consecutive days in 5 days windows. More describtion of
    this function is included in the READ_ME. 
    arguments:
-   startDayOfYear= first day of the 5 days window
-   endDayofYear = last day of the 5 days window
+   endDate = end date of the 5 day window, e.g. '2020-01-05'
    flagged_array = xarray from Flagging3D"""
 
-def duration5Days(startDayOfYear, endDayofYear, flagged_array):
+def duration5Days(endDate, flagged_array):
     #turn nas to 0
     flagged_array = flagged_array.fillna(0)
-    
-    #get a range but move from dayofyear to python indicing start with 0
-    listOfDays = list(range(startDayOfYear-1,endDayofYear)) #get the window 5 
-    d1 = flagged_array[listOfDays[0],:,:]
-    d2 = flagged_array[listOfDays[1],:,:]
-    d3 = flagged_array[listOfDays[2],:,:]
-    d4 = flagged_array[listOfDays[3],:,:]
-    d5 = flagged_array[listOfDays[4],:,:]
+    #get list of dates ending with input date
+    dates = pd.date_range(end = endDate, periods = 5) #get the window 5 
+    flagged_array = flagged_array.sel(time = slice(dates[0],dates[4] + pd.Timedelta(hours = 23, minutes = 59, seconds = 59)))
+    d1 = flagged_array[0,:,:]
+    d2 = flagged_array[1,:,:]
+    d3 = flagged_array[2,:,:]
+    d4 = flagged_array[3,:,:]
+    d5 = flagged_array[4,:,:]
     
     
     #create new empty 2D array that will hold the consecutive days
@@ -115,7 +115,7 @@ def duration5Days(startDayOfYear, endDayofYear, flagged_array):
         ),
     )
     #assign time coordinate from endDayofYear
-    ds = ds.assign_coords(time=flagged_array[endDayofYear-1,:,:].coords['time'].values)
+    ds = ds.assign_coords(time=flagged_array[4,:,:].coords['time'].values)
     ds = ds.expand_dims('time')
     
     return ds
@@ -130,22 +130,22 @@ def duration5Days(startDayOfYear, endDayofYear, flagged_array):
    endDayofYear = last day of the 10 days window
    flagged_array = xarray from Flagging3D"""
 
-def duration10Days(startDayOfYear, endDayofYear, flagged_array):
-    #turn na to 0
+def duration10Days(endDate, flagged_array):
+    #turn nas to 0
     flagged_array = flagged_array.fillna(0)
-    
-    #get a range but move from dayofyear to python indicing start with 0
-    listOfDays = list(range(startDayOfYear-1,endDayofYear)) #get the window 5 
-    d1 = flagged_array[listOfDays[0],:,:]
-    d2 = flagged_array[listOfDays[1],:,:]
-    d3 = flagged_array[listOfDays[2],:,:]
-    d4 = flagged_array[listOfDays[3],:,:]
-    d5 = flagged_array[listOfDays[4],:,:]
-    d6 = flagged_array[listOfDays[5],:,:]
-    d7 = flagged_array[listOfDays[6],:,:]
-    d8 = flagged_array[listOfDays[7],:,:]
-    d9 = flagged_array[listOfDays[8],:,:]
-    d10 = flagged_array[listOfDays[9],:,:]
+    #get list of dates ending with input date
+    dates = pd.date_range(end = endDate, periods = 10) #get the window 10
+    flagged_array = flagged_array.sel(time = slice(dates[0],dates[9] + pd.Timedelta(hours = 23, minutes = 59, seconds = 59)))
+    d1 = flagged_array[0,:,:]
+    d2 = flagged_array[1,:,:]
+    d3 = flagged_array[2,:,:]
+    d4 = flagged_array[3,:,:]
+    d5 = flagged_array[4,:,:]
+    d6 = flagged_array[5,:,:]
+    d7 = flagged_array[6,:,:]
+    d8 = flagged_array[7,:,:]
+    d9 = flagged_array[8,:,:]
+    d10 = flagged_array[9,:,:]
     
     
     #create new empty 2D array that will hold the consecutive days
@@ -198,7 +198,7 @@ def duration10Days(startDayOfYear, endDayofYear, flagged_array):
         ),
     )
     #assign time coordinate from endDayofYear
-    ds = ds.assign_coords(time=flagged_array[endDayofYear-1,:,:].coords['time'].values)
+    ds = ds.assign_coords(time=flagged_array[9,:,:].coords['time'].values)
     ds = ds.expand_dims('time')
     
     return ds
