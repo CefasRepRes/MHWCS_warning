@@ -83,10 +83,11 @@ def duration5Days(endDate, flagged_array):
     cols = flagged_array.shape[2]
     
     #add an auxialiary empty 2D array at the start and end of the 5 days slice
-    con = np.empty((rows,cols))
+    con = np.zeros((rows,cols))
     
     #note this changes the axis, 0,1,2 (2 is the depth)
     f = np.dstack([con, d1, d2, d3, d4, d5, con]) #sandwich the 3darray with auxialiary arrays of 0
+    condays = np.zeros((rows,cols))
     
     #loop through each cell and find the maximum lenght of the consecutive days (flags with 1)
     for row in range(0,f.shape[0]-1):
@@ -94,20 +95,20 @@ def duration5Days(endDate, flagged_array):
             index = np.where(f[row,col,:]==0) #get an index of where 0s are
             maxConDays = np.max(np.diff(index))-1 #difference of the indices
             if maxConDays == 5:
-                con[row,col] = 5
+                condays[row,col] = 5
             elif (maxConDays == 4 and f[row,col,1] == 0):
-                con[row,col] = 4
+                condays[row,col] = 4
             elif (maxConDays == 3 and f[row,col,1] == 0 and f[row,col,2] == 0):
-                con[row,col] = 3
+                condays[row,col] = 3
             else:
-                con[row,col] = 0
+                condays[row,col] = 0
                         
     #change 0 to na
-    con[con==0] = np.nan
+    condays[condays==0] = np.nan
     #create a dataset
     ds = xr.Dataset(
         data_vars=dict(
-            condayscount=(["lat", "lon"], con)
+            condayscount=(["lat", "lon"], condays)
         ),
         coords=dict(
             lon=flagged_array['lon'],
@@ -153,11 +154,12 @@ def duration10Days(endDate, flagged_array):
     cols = flagged_array.shape[2]
     
     #add an auxialiary empty 2D array at the start and end of the 5 days slice
-    con = np.empty((rows,cols))
+    con = np.zeros((rows,cols))
     
     
     #note this changes the axis, 0,1,2 (2 is the depth)
     f = np.dstack([con, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, con]) #sandwich the 3darray with auxialiary arrays of 0
+    condays = np.zeros((rows,cols))
     
     for row in range(0,f.shape[0]-1):
         for col in range(0, f.shape[1]-1):
@@ -170,27 +172,27 @@ def duration10Days(endDate, flagged_array):
                 index = np.where(f5to10[row,col,:]==0) #get an index of where 0s are
                 maxConDays = np.max(np.diff(index))-1 #difference of the indices
                 if maxConDays == 6: #all days are marked
-                    con[row,col] = 6
+                    condays[row,col] = 6
                 elif (maxConDays == 5 and f5to10[row,col,6] == 0):
-                    con[row,col] = 5
+                    condays[row,col] = 5
                 elif (maxConDays == 4 and f5to10[row,col,6] == 0 and f5to10[row,col,5] == 0):
-                    con[row,col] = 4
+                    condays[row,col] = 4
                 elif (maxConDays == 3 and f5to10[row,col,6] == 0 and f5to10[row,col,5] == 0 and f5to10[row,col,4] == 0):
-                    con[row,col] = 3
+                    condays[row,col] = 3
                 elif (maxConDays == 2 and f5to10[row,col,6] == 0 and f5to10[row,col,5] == 0 and f5to10[row,col,4] == 0 and f5to10[row,col,3] == 0):
-                    con[row,col] = 2
+                    condays[row,col] = 2
                 elif (maxConDays == 1 and f5to10[row,col,6] == 0 and f5to10[row,col,5] == 0 and f5to10[row,col,4] == 0 and f5to10[row,col,3] == 0 and f5to10[row,col,2] == 0):
-                    con[row,col] = 1
+                    condays[row,col] = 1
             else:
-                con[row,col] = 0
+                condays[row,col] = 0
                         
     #change 0 to na
-    con[con==0] = np.nan
+    condays[condays==0] = np.nan
     
     #create a dataset
     ds = xr.Dataset(
         data_vars=dict(
-            condayscount=(["lat", "lon"], con)
+            condayscount=(["lat", "lon"], condays)
         ),
         coords=dict(
             lon=flagged_array['lon'],
