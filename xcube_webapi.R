@@ -21,8 +21,8 @@ dat$results
 
 
 #get tiles - have not fully tested this part
-baseurltiles = "https://eutro-cube.cefas.co.uk/eutro/datasets/"
-url = paste0(baseurltiles, dataset_name,"/vars/", var_name, "/tiles/1/1/1.png")
+#baseurltiles = "https://eutro-cube.cefas.co.uk/eutro/datasets/"
+#url = paste0(baseurltiles, dataset_name,"/vars/", var_name, "/tiles/1/1/1.png")
 
 
-dat = GET(url)
+#dat = GET(url)
